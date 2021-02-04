@@ -21,6 +21,22 @@ export class Parent extends React.Component<ParentProps, ParentState> {
     this.onAgeChanged = this.onAgeChanged.bind(this);
   }
 
+  async componentDidMount() {
+    const age = await this.getAgeFromServer();
+    this.setState({
+      age,
+    });
+  }
+
+  private getAgeFromServer(): Promise<number> {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const db = 42;
+        resolve(db);
+      }, 4000);
+    });
+  }
+
   private onAgeChanged(e: any): void {
     this.setState({
       age: +(e.target as any).value,
